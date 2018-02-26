@@ -21,12 +21,11 @@ set (SRC
 
 # === Testing
 
-# TODO
-# option (ENABLE_TESTING "Build unit and other tests" OFF)
-# if (ENABLE_TESTING)
-#     enable_testing()
-#     find_package (GTest REQUIRED)
-# endif (ENABLE_TESTING)
+option (ENABLE_TESTING "Build unit and other tests" OFF)
+if (ENABLE_TESTING)
+    enable_testing()
+    find_package (GTest REQUIRED)
+endif (ENABLE_TESTING)
 
 # == Dependencies
 
@@ -72,10 +71,9 @@ install(FILES ${PROJECT_BINARY_DIR}/pqctio_export.h DESTINATION include/pQCTIO)
 
 # === Testing
 
-# TODO
-# if (ENABLE_TESTING)
-#   add_subdirectory (tests)
-# endif (ENABLE_TESTING)
+if (ENABLE_TESTING)
+  add_subdirectory (tests)
+endif (ENABLE_TESTING)
 
 # === CMake config files for importing this project
 
