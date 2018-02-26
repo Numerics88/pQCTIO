@@ -46,7 +46,7 @@ reader.ReadImageInfo();
 std::cout << reader << std::endl;
 
 // Create a buffer for the image data.
-size_t size = reader.number_of_voxels
+size_t size = reader.number_of_voxels;
 std::vector<short> image_data (size);
 
 // Read the image data.

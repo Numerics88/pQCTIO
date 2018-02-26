@@ -44,22 +44,22 @@ public:
     /// Helper variables
     long                    number_of_voxels;
     std::string             filename;
-    
+
     /// Header variables
     double      VoxelSize;
     double      ObjLen;
-	int         PicX0;
-	int         PicY0;
-	int         PicMatrixX;
-	int         PicMatrixY;
+    int         PicX0;
+    int         PicY0;
+    int         PicMatrixX;
+    int         PicMatrixY;
     long        PatNo;
-	int         PatMeasNo;
-	long        PatBirth;
-	long        MeasDate;
-	std::string PatName;
-	std::string MeasInfo;
-	std::string Device;
-	std::string PatID;
+    int         PatMeasNo;
+    long        PatBirth;
+    long        MeasDate;
+    std::string PatName;
+    std::string MeasInfo;
+    std::string Device;
+    std::string PatID;
 
     /// Helper function for printing the object.
     friend std::ostream& operator<<(std::ostream& out, pQCTFile const& obj);
