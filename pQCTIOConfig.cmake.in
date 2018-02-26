@@ -1,0 +1,16 @@
+# Config file for the pQCTIO package
+#
+# PQCTIO_INCLUDE_DIRS - where to find .h files for pQCTIO
+# PQCTIO_LIBRARIES    - libraries to link against
+
+# Compute paths
+get_filename_component(PQCTIO_CMAKE_DIR "${CMAKE_CURRENT_LIST_FILE}" PATH)
+set(PQCTIO_INCLUDE_DIRS "@CONF_INCLUDE_DIRS@")
+
+# Our library dependencies (contains definitions for IMPORTED targets)
+if(NOT TARGET pQCTIO AND NOT pQCTIO_BINARY_DIR)
+  include("${PQCTIO_CMAKE_DIR}/pQCTIOTargets.cmake")
+endif()
+
+# These are IMPORTED targets created by pQCTIOTargets.cmake
+set(PQCTIO_LIBRARIES pQCTIO)
