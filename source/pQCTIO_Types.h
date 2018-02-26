@@ -7,7 +7,7 @@
 #define __qPQCTIO_pQCTIO_Types_h
 
 #include <boost/endian/arithmetic.hpp>
-#include <assert.h>
+#include <string.h>
 
 namespace pQCTIO
 {
@@ -66,8 +66,14 @@ typedef struct HeaderData {
     pDouble_t       VoxelSize;          // Bytes 12 - 19        Units mm
     char            Pad1[318-20];       // Pad to 318
     pDouble_t       ObjLen;             // Bytes 318 - 325      Units mm
-    char            Pad2[662-326];      // Pad to 662 
-    char            MeasInfo[81*4];     // Bytes 662 - 985
+    char            Pad2[663-326];      // Pad to 663 
+    char            MeasInfo1[80];      // Bytes 663 - 985
+    char            PadChar1;
+    char            MeasInfo2[80];      // Bytes 663 - 985
+    char            PadChar2;
+    char            MeasInfo3[80];      // Bytes 663 - 985
+    char            PadChar3;
+    char            MeasInfo4[80];      // Bytes 663 - 985
     pLongInt_t      MeasDate;           // Bytes 986 - 989      YYYYMMDD
     char            Pad3[1051-990];     // Pad to 1050
     char            Device[12];         // Bytes 1051 - 1062
@@ -75,9 +81,9 @@ typedef struct HeaderData {
     pInteger_t      PatMeasNo;          // Bytes 1085 - 1086
     pLongInt_t      PatNo;              // Bytes 1087 - 1090
     pLongInt_t      PatBirth;           // Bytes 1091 - 1094
-    char            Pad5[1099-1095];    // Pad to 1099
-    char            PatName[40];        // Bytes 1099 - 1138
-    char            Pad6[1283-1139];    // Pad to 1283
+    char            Pad5[1100-1095];    // Pad to 1100
+    char            PatName[40];        // Bytes 1100 - 1139
+    char            Pad6[1283-1140];    // Pad to 1283
     char            PatID[12];          // Bytes 1283 - 1294
     char            Pad7[1525-1295];    // Pad to 1525
     pWord_t         PicX0;              // Bytes 1525 - 1526
@@ -90,15 +96,14 @@ typedef struct HeaderData {
 } HeaderData_t;
 #pragma pack(pop)
 
-// template <typename T>
-// void PrintHex(T var, std::string name){
-//     std::cout << name << std::endl << "  ";
-//     unsigned char *p = (unsigned char *)&var;
-//     size_t i;
-//     for (i=0; i < sizeof var; ++i)
-//         printf("%02x ", p[i]);
-//     std::cout << std::endl;
-// }
+/// A utility function since pascal strings are not null terminated.
+std::string parse_pascal_string(const char *s, int n) {
+    std::string a(s);
+    if (a.size() > n) {
+        a.resize(n);
+    }
+    return a;
+}
 
 } /* end namepsace pQCTIO */
 

@@ -8,7 +8,7 @@
 namespace pQCTIO
 {
 
-void CtFile::ReadImageInfo() {
+void pQCTFile::ReadImageInfo() {
     // Open file.
     std::ifstream f (this->filename.c_str(), std::ios_base::in | std::ios_base::binary);
     if (!f) {
@@ -27,7 +27,7 @@ void CtFile::ReadImageInfo() {
     f.close();
 }
 
-void CtFile::ReadHeader(std::ifstream& f) {
+void pQCTFile::ReadHeader(std::ifstream& f) {
     // Header starts at 0, duh
     f.seekg(0, f.beg);
     HeadPrefix_t header;
@@ -50,7 +50,7 @@ void CtFile::ReadHeader(std::ifstream& f) {
     this->ReadHeaderData(f);
 }
 
-void CtFile::ComputeNumberOfVoxels(std::ifstream& f) {
+void pQCTFile::ComputeNumberOfVoxels(std::ifstream& f) {
     // Determine file size
     f.clear();                  // It's possible we reached EOF
     f.seekg(0, f.beg);
@@ -69,7 +69,7 @@ void CtFile::ComputeNumberOfVoxels(std::ifstream& f) {
     }
 }
 
-void CtFile::ReadHeaderData(std::ifstream& f) {
+void pQCTFile::ReadHeaderData(std::ifstream& f) {
     // Seek to the beginning of the file, cautious against reaching the end.
     f.clear();
     f.seekg(0, f.beg);
@@ -81,14 +81,17 @@ void CtFile::ReadHeaderData(std::ifstream& f) {
     // Copy data from header to class
     this->VoxelSize   = headerData.VoxelSize;
     this->ObjLen      = headerData.ObjLen;
-    this->MeasInfo    = std::string(headerData.MeasInfo);
+    this->MeasInfo    = parse_pascal_string(headerData.MeasInfo1, 40)
+                        + parse_pascal_string(headerData.MeasInfo2, 40)
+                        + parse_pascal_string(headerData.MeasInfo3, 40)
+                        + parse_pascal_string(headerData.MeasInfo4, 40);
     this->MeasDate    = headerData.MeasDate;
-    this->Device      = std::string(headerData.Device);
+    this->Device      = parse_pascal_string(headerData.Device, 12);
     this->PatMeasNo   = headerData.PatMeasNo;
     this->PatNo       = headerData.PatNo;
     this->PatBirth    = headerData.PatBirth;
-    this->PatName     = std::string(headerData.PatName);
-    this->PatID       = std::string(headerData.PatID);
+    this->PatName     = parse_pascal_string(headerData.PatName, 40);
+    this->PatID       = parse_pascal_string(headerData.PatID, 12);
     this->PicX0       = headerData.PicX0;
     this->PicY0       = headerData.PicY0;
     this->PicMatrixX  = headerData.PicMatrixX;
@@ -100,7 +103,7 @@ void CtFile::ReadHeaderData(std::ifstream& f) {
     }
 }
 
-void CtFile::ReadImageData(short* data, size_t size) {
+void pQCTFile::ReadImageData(short* data, size_t size) {
     // Open file.
     std::ifstream f (this->filename.c_str(), std::ios_base::in | std::ios_base::binary);
     if (!f) {
@@ -109,11 +112,12 @@ void CtFile::ReadImageData(short* data, size_t size) {
     f.exceptions ( std::ifstream::failbit | std::ifstream::badbit );
 
     // Seek to where data begins
-    f.seekg(CT_HEADER_LENGTH);
-    f.read((char*)data, size);
+    f.clear();
+    f.seekg(CT_HEADER_LENGTH, f.beg);
+    f.read((char*)data, size*2);
 
     // Check if we successfully read in all the bytes
-    if (f.gcount() != size) {
+    if (f.gcount() != size*2) {
         f.close();
         throw_pqctio_exception (std::string("Could not read all image data from file ") + filename);
     }
@@ -122,19 +126,20 @@ void CtFile::ReadImageData(short* data, size_t size) {
     f.close();
 }
 
-CtFile::CtFile()
+pQCTFile::pQCTFile()
 {}
 
-CtFile::CtFile(const char* fn):
+pQCTFile::pQCTFile(const char* fn):
     filename (fn)
 {}
 
-CtFile::CtFile(const std::string fn):
+pQCTFile::pQCTFile(const std::string fn):
     filename (fn.c_str())
 {}
 
-std::ostream& operator<<(std::ostream& out, CtFile const& obj)
+std::ostream& operator<<(std::ostream& out, pQCTFile const& obj)
 {
+    out << "pQCTFile" << std::endl;
     out << "Filename:           " << obj.filename << std::endl;
     out << "Number of Voxels:   " << obj.number_of_voxels << std::endl;
     out << "Header:             " << std::endl;

@@ -12,15 +12,15 @@
 namespace pQCTIO
 {
 
-/** Defines the CtFile.
+/** Defines the pQCTFile.
  * 
  */
-class PQCTIO_EXPORT CtFile {
+class PQCTIO_EXPORT pQCTFile {
 public:
     /// Constructors.
-    CtFile ();
-    CtFile (const char* filename);
-    CtFile (const std::string filename);
+    pQCTFile ();
+    pQCTFile (const char* filename);
+    pQCTFile (const std::string filename);
 
     /// Read all necessary information from the file.
     /// This function will throw a pqctio_exception if the
@@ -62,7 +62,7 @@ public:
 	std::string PatID;
 
     /// Helper function for printing the object.
-    friend std::ostream& operator<<(std::ostream& out, CtFile const& obj);
+    friend std::ostream& operator<<(std::ostream& out, pQCTFile const& obj);
 
 private:
     /// Utility function for reading the header.
@@ -83,7 +83,7 @@ private:
     /// fully defined header for the pQCT Ct files. As such, not every
     /// header element can be read.
     void ReadHeaderData(std::ifstream& f);
-}; /* end class PQCTIO_EXPORT CtFile */
+}; /* end class PQCTIO_EXPORT pQCTFile */
 
 } /* end namepsace pQCTIO */
 
