@@ -2,6 +2,10 @@
 Input/Output library for reading and writing images for the
 Stratec pQCT system.
 
+![Build Status][build-status]
+
+[build-status]: https://dev.azure.com/babesler/n88/_apis/build/status/Numerics88.pQCTIO?branchName=master
+
 # Compiling and linking
 pQCTIO requires the following:
 
