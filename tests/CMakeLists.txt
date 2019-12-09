@@ -48,10 +48,10 @@ include_directories ("${GTEST_INCLUDE_DIR}")
 include_directories (${Boost_INCLUDE_DIR})
 
 add_executable (pQCTIOTests
-  pQCTIOTests.cxx
-  ../source/pQCTIO.cxx)
+  pQCTIOTests.cxx)
 
 target_link_libraries (pQCTIOTests
+	pQCTIO
   ${GTEST_LIBRARIES}
   ${Boost_FILESYSTEM_LIBRARY}
   ${Boost_SYSTEM_LIBRARY})

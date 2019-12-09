@@ -47,7 +47,7 @@ include_directories (${CMAKE_SOURCE_DIR}/include)
 include (GenerateExportHeader)
 
 add_library (pQCTIO ${SRC})
-set_target_properties(pQCTIO 
+set_target_properties(pQCTIO
   PROPERTIES
     VERSION ${PQCTIO_VERSION}
     SOVERSION ${PQCTIO_MAJOR_VERSION}.${PQCTIO_MINOR_VERSION})
@@ -55,8 +55,9 @@ set_target_properties(pQCTIO
 generate_export_header (pQCTIO)
 
 target_link_libraries (pQCTIO
-  ${Boost_FILESYSTEM_LIBRARY}
-  ${Boost_SYSTEM_LIBRARY})
+	PUBLIC
+		Boost::filesystem Boost::system
+)
 
 # === Install
 
@@ -125,7 +126,11 @@ install(FILES
     "${PROJECT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/pQCTIOConfig.cmake"
     "${PROJECT_BINARY_DIR}/pQCTIOConfigVersion.cmake"
     DESTINATION "${INSTALL_CMAKE_DIR}")
- 
+
 # Install the export set for use with the install-tree
-install(EXPORT pQCTIOTargets DESTINATION
-  "${INSTALL_CMAKE_DIR}")
+install(EXPORT pQCTIOTargets
+	NAMESPACE
+		pQCTIO::
+	DESTINATION
+  	"${INSTALL_CMAKE_DIR}"
+)
