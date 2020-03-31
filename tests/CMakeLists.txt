@@ -38,7 +38,7 @@ endif (CMAKE_SYSTEM_NAME STREQUAL "Linux")
 
 add_test (
   NAME pQCTIOTests
-  COMMAND $<TARGET_FILE:pQCTIOTests> "${data_dir}"
+  COMMAND $<TARGET_FILE:pQCTIOTests> "${CMAKE_BINARY_DIR}/data"
 )
 
 add_dependencies (pQCTIOTests test_data)
