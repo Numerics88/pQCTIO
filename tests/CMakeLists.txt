@@ -1,46 +1,22 @@
 # === Fetch the external test data ===
 
-# Yes, I know. I should do a proper algorithm + data storage somewhere. I do not have access to the Numerics88
-# website so this is the best I can do for now.
+include (ExternalData)
 
-find_package(Subversion)
+set (ExternalData_URL_TEMPLATES "http://numerics88.com/data/%(algo)/%(hash)")
 
-set(testing_url "https://github.com/Bonelab/BonelabData/trunk/data/")
-set(data_dir "${CMAKE_BINARY_DIR}/data")
+ExternalData_Expand_Arguments(
+  fetch_data_tarball
+  DATATARBALL
+  DATA{${CMAKE_SOURCE_DIR}/data/pqctio_testdata.tar.gz})
+ExternalData_Add_Target (fetch_data_tarball)
 
-function(fetch_data DEST_DIR)
-  # Gather all files passed through
-  set(input_files ${ARGN})
-
-  # Create the destination directory
-  set( fetch_cmd COMMAND ${CMAKE_COMMAND} -E make_directory ${DEST_DIR} )
-
-  # Get all files
-  set(output_files "")
-  foreach ( input_file ${input_files} )
-    LIST( APPEND fetch_cmd COMMAND svn export ${testing_url}/${input_file} ${DEST_DIR}/${input_file})
-    set(output_files ${output_files} ${DEST_DIR}/${input_file})
-  endforeach( input_file ${targetsToCopy} )
-
-  # Add all commands
-  add_custom_command(
-    OUTPUT ${output_files}
-    PRE_BUILD ${fetch_cmd}
-    COMMENT "Fetching data"
-  )
-
-  # Final target for linking data
-  add_custom_target (
-    testing_data
-    DEPENDS ${output_files}
-  )
-endfunction(fetch_data)
-
-fetch_data(
-  ${data_dir}
-  I0020027.M01
-  I0020002.M01
-)
+# I0020027.M01 is just a random choice of one of the unpacked data files.
+add_custom_command (OUTPUT ${CMAKE_BINARY_DIR}/data/I0020027.M01
+  COMMAND ${CMAKE_COMMAND} -E tar "xvzf" "pqctio_testdata.tar.gz"
+  WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/data
+  DEPENDS fetch_data_tarball)
+add_custom_target (test_data
+  DEPENDS ${CMAKE_BINARY_DIR}/data/I0020027.M01)
 
 # === Actual tests (single google test binary) ===
 
@@ -65,4 +41,4 @@ add_test (
   COMMAND $<TARGET_FILE:pQCTIOTests> "${data_dir}"
 )
 
-add_dependencies (pQCTIOTests testing_data)
+add_dependencies (pQCTIOTests test_data)
