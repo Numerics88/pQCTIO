@@ -98,6 +98,7 @@ endforeach()
 
 # Add all targets to the build-tree export set
 export (TARGETS pQCTIO
+    NAMESPACE pQCTIO::
     FILE "${PROJECT_BINARY_DIR}/pQCTIOTargets.cmake")
 
 # Export the package for use from the build-tree
