@@ -53,6 +53,7 @@ include (GenerateExportHeader)
 add_library (pQCTIO ${SRC})
 set_target_properties(pQCTIO
   PROPERTIES
+    POSITION_INDEPENDENT_CODE ON
     VERSION ${PQCTIO_VERSION}
     SOVERSION ${PQCTIO_MAJOR_VERSION}.${PQCTIO_MINOR_VERSION})
 
