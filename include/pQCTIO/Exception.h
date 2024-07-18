@@ -11,9 +11,15 @@
 #include "pqctio_export.h"
 
 /** Throws pQCTIOException and sets the file name and line number. */
+#if __cplusplus >= 201703L
 #define throw_pqctio_exception(x)                                          \
-  if(!std::uncaught_exception())                                          \
+  if(std::uncaught_exceptions() == 0)                                      \
     throw pQCTIO::pQCTIOException (x, __FILE__, __LINE__)
+#else
+#define throw_pqctio_exception(x)                                          \
+  if(!std::uncaught_exception())                                           \
+    throw pQCTIO::pQCTIOException (x, __FILE__, __LINE__)
+#endif
 
 /** If the argument is false, throws pQCTIOException and sets the file name and line number.
   *
