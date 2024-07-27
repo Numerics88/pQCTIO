@@ -1,4 +1,4 @@
-cmake_minimum_required (VERSION 3.2)
+cmake_minimum_required (VERSION 3.5)
 project (pQCTIO)
 
 # === Versioning
@@ -33,7 +33,7 @@ endif (ENABLE_TESTING)
 
 # == Dependencies
 
-find_package (Boost 1.57.0 COMPONENTS filesystem system REQUIRED)
+find_package (Boost 1.70.0 COMPONENTS filesystem system CONFIG REQUIRED)
 if (MSVC)
   add_definitions (-D_CRT_SECURE_NO_WARNINGS)
 endif (MSVC)
