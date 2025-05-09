@@ -12,5 +12,5 @@ cxx_compiler_version:
 clang_variant:
   - default
 channels:
-  - friedchickean
+  - Numerics88
   - defaults
