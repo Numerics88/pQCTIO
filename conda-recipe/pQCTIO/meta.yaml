@@ -8,16 +8,16 @@ source:
 build:
   number: 0
 
-# Note, boost has an upperbound right now to hanlde cmake correctly
 requirements:
   build:
     - {{ compiler('cxx') }}
     - cmake >=3.2
-    - boost >=1.57,<=1.67
+    - boost >=1.56
     - ninja
     - gtest
-  run:
-    - boost >=1.57
+    - n88util >=3.0
+  host:
+    - libcxx <=14.0.6
 
 about:
   home: https://github.com/Numerics88/pQCTIO
