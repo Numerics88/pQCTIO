@@ -1,6 +1,6 @@
 package:
   name: pqctio
-  version: {{ GIT_DESCRIBE_TAG | lower | replace("v","") }}
+  version: 2.0.0
 
 source:
   path: ./../../
@@ -10,13 +10,13 @@ build:
 
 requirements:
   build:
-    - {{ compiler('cxx') }}
-    - cmake >=3.2
+    - cmake >=3.30.3
     - boost >=1.56
     - ninja
     - gtest
+    - {{ compiler('cxx') }}
   host:
-    - libcxx <=14.0.6
+    - boost >=1.56
 
 about:
   home: https://github.com/Numerics88/pQCTIO
