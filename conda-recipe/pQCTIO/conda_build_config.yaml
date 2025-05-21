@@ -8,4 +8,6 @@ cxx_compiler:
   - vs2015                     # [win]
 channels:
   - Numerics88
+  - friedchickean
+  - conda-forge
   - defaults
