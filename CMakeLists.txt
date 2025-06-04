@@ -33,7 +33,7 @@ endif (ENABLE_TESTING)
 
 # == Dependencies
 
-find_package (Boost 1.70.0 COMPONENTS filesystem system CONFIG REQUIRED)
+find_package (Boost COMPONENTS filesystem system CONFIG REQUIRED)
 if (MSVC)
   add_definitions (-D_CRT_SECURE_NO_WARNINGS)
 endif (MSVC)

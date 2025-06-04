@@ -2,8 +2,9 @@
 Input/Output library for reading and writing images for the
 Stratec pQCT system.
 
-[![Build Status](https://dev.azure.com/babesler/n88/_apis/build/status/Numerics88.pQCTIO?branchName=master)](https://dev.azure.com/babesler/n88/_build/latest?definitionId=7&branchName=master)
-[![Anaconda-Server Badge](https://anaconda.org/numerics88/pqctio/badges/installer/conda.svg)](https://anaconda.org/Numerics88/pqctio/)
+[![Conda Build And Publish](https://github.com/Numerics88/pQCTIO/actions/workflows/build-publish-anaconda.yml/badge.svg?branch=master)](https://github.com/Numerics88/pQCTIO/actions/workflows/build-publish-anaconda.yml)
+[![Anaconda-Server Version Badge](https://anaconda.org/numerics88/pqctio/badges/version.svg)](https://anaconda.org/Numerics88/pqctio/)
+[![Anaconda-Server Platforms Badge](https://anaconda.org/numerics88/pqctio/badges/platforms.svg)](https://anaconda.org/numerics88/pqctio)
 
 # Compiling and linking
 pQCTIO requires the following:
