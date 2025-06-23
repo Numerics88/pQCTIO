@@ -1,4 +1,4 @@
-// Copyright (c) 2018 Numerics88
+// Copyright (c) 2010-2025, Numerics88 Solutions.
 // See LICENSE for details.
 
 #ifndef __pQCTIO_Exception_h
