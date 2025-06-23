@@ -1,4 +1,4 @@
-// Copyright (c) Numerics88
+// Copyright (c) 2010-2025, Numerics88 Solutions.
 // See LICENSE for details.
 
 // See https://github.com/mdoube/BoneJ/blob/master/src/org/doube/bonej/pqct/Read_Stratec_File.java
