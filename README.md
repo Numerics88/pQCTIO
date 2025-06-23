@@ -85,7 +85,7 @@ Currently, this is not supported. If this is required, please contact the mainta
 
 ## Authors and Contributors
 
-pQCTIO was developed by Bryce Besler.
+pQCTIO was developed by Bryce Besler at the University of Calgary.
 
 ## Licence
 
